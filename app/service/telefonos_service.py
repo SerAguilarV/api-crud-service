@@ -16,8 +16,7 @@ class TelefonosService:
         return await self.mongo.find_one({"telefono": telefono})
 
     async def get_telefono_by_id(self, id):
-        telefono = await self.mongo.find_one({"_id": ObjectId(id)})
-        return telefono
+        return await self.mongo.find_one({"_id": ObjectId(id)})
 
     async def insert_telefono(self, telefono: Telefonos):
         if await self.get_telefono_by_telefono(telefono.telefono) is not None:
