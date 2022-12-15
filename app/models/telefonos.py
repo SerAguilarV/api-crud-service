@@ -6,6 +6,15 @@ from typing import Optional
 from app.models.utils import PyObjectId
 
 
+class UpdateTelefonos(BaseModel):
+    nombre: Optional[str]
+    apellido_materno: Optional[str]
+    apellido_paterno: Optional[str]
+    telefono: int
+    status: Optional[str]
+    descripcion: Optional[str]
+
+
 class Telefonos(BaseModel):
     nombre: str
     apellido_materno: str
