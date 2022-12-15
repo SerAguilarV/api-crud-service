@@ -25,3 +25,8 @@ class TelefonosService:
         telefono_entity.created_at = datetime.now()
         id_insertado = await self.mongo.insert_one(telefono_entity.__dict__)
         return await self.get_telefono_by_id(id_insertado.inserted_id)
+
+    async def delete_by_telefono(self, telefono):
+        if await self.get_telefono_by_telefono(telefono) is None:
+            return None
+        return await self.mongo.delete_one({"telefono": telefono})
