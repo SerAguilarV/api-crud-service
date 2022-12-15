@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from typing import Union, Optional
 
-from app.models.telefonos import TelefonosEntity, Telefonos
+from app.models.telefonos import TelefonosEntity, Telefonos, UpdateTelefonos
 from app.service.telefonos_service import TelefonosService
 
 router = APIRouter()
@@ -37,5 +37,8 @@ async def delete_state(telefono:int):
 
 
 @router.put("/telefonos")
-def update_state():
-    return None
+async def update_state(telefono:UpdateTelefonos):
+    telefono = await telefonos_service.update_by_telefono(telefono)
+    if telefono is None:
+        return JSONResponse(status_code=404, content={"result": False, "error": "Telefono no existe"})
+    return JSONResponse(status_code=200, content={"result": True})
