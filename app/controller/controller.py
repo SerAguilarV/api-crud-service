@@ -29,8 +29,11 @@ async def create_telefonos(telefono: Telefonos):
 
 
 @router.delete("/telefonos")
-def delete_state():
-    return None
+async def delete_state(telefono:int):
+    telefono = await telefonos_service.delete_by_telefono(telefono)
+    if telefono is None:
+        return JSONResponse(status_code=404, content={"result": False, "error": "Telefono no existe"})
+    return JSONResponse(status_code=200, content={"result": True})
 
 
 @router.put("/telefonos")
